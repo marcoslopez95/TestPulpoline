@@ -3,6 +3,7 @@
         "@babel/core": "^7.17.0",
         "@babel/preset-env": "^7.16.0",
         "@hotwired/stimulus": "^3.0.0",
+        "@mdi/font": "^7.3.67",
         "@symfony/stimulus-bridge": "^3.2.0",
         "@symfony/ux-vue": "file:vendor/symfony/ux-vue/assets",
         "@symfony/webpack-encore": "^4.0.0",
@@ -22,8 +23,13 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@jamescoyle/vue-icon": "^0.1.2",
+        "@mdi/js": "^7.3.67",
         "@vue/compiler-sfc": "^3.3.8",
+        "axios": "^1.6.2",
+        "material-design-icons-iconfont": "^6.7.0",
         "vue-loader": "^17.3.1",
+        "vue-toastification": "^2.0.0-rc.5",
         "vuetify": "^3.4.0",
         "webpack-plugin-vuetify": "^2.0.1"
     }

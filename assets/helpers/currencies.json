@@ -1,0 +1,122 @@
+[
+    {
+        "nombre": "Dólar estadounidense",
+        "iso3": "USD",
+        "simbolo": "$"
+    },
+    {
+        "nombre": "Euro",
+        "iso3": "EUR",
+        "simbolo": "€"
+    },
+    {
+        "nombre": "Yen japonés",
+        "iso3": "JPY",
+        "simbolo": "¥"
+    },
+    {
+        "nombre": "Libra esterlina",
+        "iso3": "GBP",
+        "simbolo": "£"
+    },
+    {
+        "nombre": "Yuan chino",
+        "iso3": "CNY",
+        "simbolo": "¥"
+    },
+    {
+        "nombre": "Franco suizo",
+        "iso3": "CHF",
+        "simbolo": "CHF"
+    },
+    {
+        "nombre": "Rupia india",
+        "iso3": "INR",
+        "simbolo": "₹"
+    },
+    {
+        "nombre": "Dólar canadiense",
+        "iso3": "CAD",
+        "simbolo": "$"
+    },
+    {
+        "nombre": "Dólar australiano",
+        "iso3": "AUD",
+        "simbolo": "$"
+    },
+    {
+        "nombre": "Corona danesa",
+        "iso3": "DKK",
+        "simbolo": "kr"
+    },
+    {
+        "nombre": "Corona noruega",
+        "iso3": "NOK",
+        "simbolo": "kr"
+    },
+    {
+        "nombre": "Corona sueca",
+        "iso3": "SEK",
+        "simbolo": "kr"
+    },
+    {
+        "nombre": "Zloty polaco",
+        "iso3": "PLN",
+        "simbolo": "zł"
+    },
+    {
+        "nombre": "Corona checa",
+        "iso3": "CZK",
+        "simbolo": "Kč"
+    },
+    {
+        "nombre": "Forinto húngaro",
+        "iso3": "HUF",
+        "simbolo": "Ft"
+    },
+    {
+        "nombre": "Rublo ruso",
+        "iso3": "RUB",
+        "simbolo": "₽"
+    },
+    {
+        "nombre": "Lira turca",
+        "iso3": "TRY",
+        "simbolo": "₺"
+    },
+    {
+        "nombre": "Rand sudafricano",
+        "iso3": "ZAR",
+        "simbolo": "R"
+    },
+    {
+        "nombre": "Dólar neozelandés",
+        "iso3": "NZD",
+        "simbolo": "$"
+    },
+    {
+        "nombre": "Dólar singapurense",
+        "iso3": "SGD",
+        "simbolo": "$"
+    },
+    {
+        "nombre": "Dólar de Hong Kong",
+        "iso3": "HKD",
+        "simbolo": "$"
+    },
+    {
+        "nombre": "Won surcoreano",
+        "iso3": "KRW",
+        "simbolo": "₩"
+    },
+    {
+        "nombre": "Dólar tailandés",
+        "iso3": "THB",
+        "simbolo": "฿"
+    },
+    {
+        "nombre": "Yen taiwanés",
+        "iso3": "TWD",
+        "simbolo": "NT$"
+    }
+]

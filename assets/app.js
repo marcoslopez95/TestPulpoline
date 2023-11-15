@@ -1,31 +1,21 @@
-/*
- * Welcome to your app's main JavaScript file!
- *
- * We recommend including the built version of this JavaScript file
- * (and its CSS file) in your base layout (base.html.twig).
- */
-
-// any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
-// start the Stimulus application
-// import './bootstrap';
 import './styles/app.css';
-
-import {createApp} from 'vue';
-import Example from '@/Hello.vue';
 import 'vuetify/styles'
-import { createVuetify } from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
-
-const vuetify = createVuetify({
-  components,
-  directives,
-})
+import "vue-toastification/dist/index.css";
+import '@mdi/font/css/materialdesignicons.css'
+import {createApp} from 'vue';
+import { vuetify } from './vuetifty'
+import Register from '@/Register.vue';
+import Home from '@/Home.vue'
+import Header from '@/Header.vue'
+import Toast from "vue-toastification";
 
 const app = createApp();
-
+const options = {};
 app
+.use(Toast, options)
 .use(vuetify)
-.component('example',Example)
+.component('Register',Register)
+.component('Home',Home)
+.component('header-v',Header)
 .mount("#app");

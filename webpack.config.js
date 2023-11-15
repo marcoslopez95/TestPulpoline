@@ -73,6 +73,7 @@ Encore
     )
     .addAliases({
         '@': path.resolve('assets/vue/controllers'),
+        '@init': path.resolve('assets'),
         vue$: 'vue/dist/vue.esm-bundler',
     })
     // uncomment if you use React
