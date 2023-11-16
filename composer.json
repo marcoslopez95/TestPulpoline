@@ -72,7 +72,7 @@
             "App\\": "src/"
         },
         "files": [
-            "./src/Helper.php"
+            "src/Helper.php"
         ]
     },
     "autoload-dev": {
