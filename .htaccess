@@ -1,4 +1,4 @@
-# For a symfony application to work properly, you MUST store this .htaccess in
+# For a Symfony application to work properly, you MUST store this .htaccess in
 # the same directory as your front controller, index.php, in a standard symfony
 # web application is under the "public" project subdirectory.
 
@@ -30,7 +30,7 @@ DirectoryIndex index.php
 
     # The convoluted rewrite condition means:
     #   1. Match all current URI in the RewriteRule and backreference it using $0
-    #   2. Strip the request uri the per-dir path and use ir as REQUEST_URI.
+    #   2. Strip the request uri the per-dir path and use it as REQUEST_URI.
     #      This is documented in https://bit.ly/3zDm3SI ("What is matched?")
     #   3. Evaluate the RewriteCond, assuming your DocumentRoot is /var/www/html,
     #      this .htaccess is in the /var/www/html/public dir and your request URI
@@ -53,10 +53,17 @@ DirectoryIndex index.php
     RewriteRule ^index\.php(?:/(.*)|$) %{ENV:BASE}/$1 [R=301,L,NC]
 
     # If the requested filename exists, simply serve it.
-    # Otherwise rewrite all other queries to the front controller.
+    # Otherwise, rewrite all other queries to the front controller.
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ %{ENV:BASE}/index.php [L]
+
+    # Add a rule to handle Vue.js build files in the build directory
     RewriteRule ^build/(.*)$ %{ENV:BASE}/build/$1 [L]
+
+    # Add a rule to handle other static files (like images, styles, etc.)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ %{ENV:BASE}/index.php [L]
 </IfModule>
 
 <IfModule !mod_rewrite.c>
