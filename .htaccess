@@ -55,6 +55,7 @@ DirectoryIndex index.php
     # If the requested filename exists, simply serve it.
     # Otherwise, rewrite all other queries to the front controller.
     RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^ %{ENV:BASE}/index.php [L]
 
     # Add a rule to handle Vue.js build files in the build directory
