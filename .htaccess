@@ -52,16 +52,12 @@ DirectoryIndex index.php
     RewriteCond %{ENV:REDIRECT_STATUS} =""
     RewriteRule ^index\.php(?:/(.*)|$) %{ENV:BASE}/$1 [R=301,L,NC]
 
-    # If the requested filename exists, simply serve it.
+    # If the requested filename exists in /build, serve it directly
+    RewriteCond %{REQUEST_URI} ^/build/
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
     # Otherwise, rewrite all other queries to the front controller.
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^ %{ENV:BASE}/index.php [L]
-
-    # Add a rule to handle Vue.js build files in the build directory
-    RewriteRule ^build/(.*)$ %{ENV:BASE}/build/$1 [L]
-
-    # Add a rule to handle other static files (like images, styles, etc.)
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^ %{ENV:BASE}/index.php [L]
