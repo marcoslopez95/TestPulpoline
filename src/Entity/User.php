@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -26,6 +28,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ApiCall::class)]
+    private Collection $apiCalls;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Token::class)]
+    private Collection $tokens;
+
+    public function __construct()
+    {
+        $this->apiCalls = new ArrayCollection();
+        $this->tokens = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -95,5 +109,65 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, ApiCall>
+     */
+    public function getApiCalls(): Collection
+    {
+        return $this->apiCalls;
+    }
+
+    public function addApiCall(ApiCall $apiCall): static
+    {
+        if (!$this->apiCalls->contains($apiCall)) {
+            $this->apiCalls->add($apiCall);
+            $apiCall->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApiCall(ApiCall $apiCall): static
+    {
+        if ($this->apiCalls->removeElement($apiCall)) {
+            // set the owning side to null (unless already changed)
+            if ($apiCall->getUser() === $this) {
+                $apiCall->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Token>
+     */
+    public function getTokens(): Collection
+    {
+        return $this->tokens;
+    }
+
+    public function addToken(Token $token): static
+    {
+        if (!$this->tokens->contains($token)) {
+            $this->tokens->add($token);
+            $token->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeToken(Token $token): static
+    {
+        if ($this->tokens->removeElement($token)) {
+            // set the owning side to null (unless already changed)
+            if ($token->getUser() === $this) {
+                $token->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

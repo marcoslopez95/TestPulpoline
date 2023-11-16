@@ -58,7 +58,7 @@ class LoginController extends AbstractController
         $this->db->beginTransaction();
         try {
             $token = new Token();
-            $token->setUserId($user->getId());
+            $token->setUser($user);
             $tokenValue = uniqid().uniqid();
             $token->setValue($tokenValue);
             $this->db->persist($token);
