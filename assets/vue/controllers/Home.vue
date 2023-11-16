@@ -83,7 +83,8 @@
                 <VCardText>
                     <VCardTitle>
                         <h3>
-                            Límite de peticiones alcanzados hoy, por favor regístrate o intenta mañana
+                            Límite de peticiones alcanzados hoy, por favor
+                            regístrate o intenta mañana
                         </h3>
                     </VCardTitle>
                 </VCardText>
@@ -102,11 +103,17 @@ import { helperStore, transformAmount } from "./../../helpers/helper";
 const helper = helperStore();
 
 const form = reactive({
-    amount: "",
+    amount: "0",
     from: "",
     to: "",
 });
 
+watch(
+    () => form.to,
+    () => {
+        showExchange.value = false;
+    }
+);
 const symbolAmount = computed(
     () => currencies.find((c) => c.iso3 === form.from)?.simbolo ?? ""
 );
@@ -121,12 +128,17 @@ const eventKeypress = (event) => (form.amount = amountFormat(event));
 form.from = currencies[0].iso3;
 form.to = currencies[1].iso3;
 
-const limited = ref(false)
+const limited = ref(false);
+
 const changeCurrencies = () => {
+    showExchange.value = false;
     const from = form.from;
     const to = form.to;
     form.from = to;
     form.to = from;
+    exchange.value = 1 / exchange.value;
+    amountEnd.value = transformAmount(form.amount) * exchange.value;
+    showExchange.value = true;
 };
 
 const getExchange = async () => {
@@ -137,11 +149,15 @@ const getExchange = async () => {
         amount: transformAmount(form.amount),
     };
     const response = await helper.http(url, "post", { data });
-    if(response.status === 205){
-        limited.value = true
-        return
+    if (response.status === 205) {
+        limited.value = true;
+        return;
     }
-    console.log("response", response);
+    if (!response.data.data.success) return;
+    const dataRes = response.data.data;
+    exchange.value = dataRes.info.quote;
+    amountEnd.value = dataRes.result;
+    showExchange.value = true;
 };
 </script>
 <style></style>

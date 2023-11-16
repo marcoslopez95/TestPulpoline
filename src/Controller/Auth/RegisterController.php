@@ -35,8 +35,8 @@ class RegisterController extends AbstractController
     {
         $this->db->beginTransaction();
         try {
-            $user = $this->db->getRepository(User::class)->findOneBy(['email'=>$data['email']]);
-            if($user){
+            $user = $this->db->getRepository(User::class)->findOneBy(['email' => $data['email']]);
+            if ($user) {
                 return custom_response(
                     'Email ya existe',
                     'register failed',

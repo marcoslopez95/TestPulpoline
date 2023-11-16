@@ -2,7 +2,6 @@
 
 namespace App\Services;
 use GuzzleHttp\Client;
-use Psr\Http\Message\StreamInterface;
 
 class CurrencyLayerService{
     public $client;
@@ -11,7 +10,7 @@ class CurrencyLayerService{
     public function __construct()
     {
         $this->client = new Client([
-            'base_uri' => 'https://api.currencylayer.com/'
+            'base_uri' => 'http://api.currencylayer.com/',
         ]);
     }
 
@@ -21,7 +20,7 @@ class CurrencyLayerService{
      * @param string $from
      * @param string $to
      * @param float $amount
-     * @return StreamInterface|array
+     * @return array
      */
     public function getExchange(string $from, string $to, float $amount)
     {
@@ -32,8 +31,10 @@ class CurrencyLayerService{
             'amount' => $amount,
         ];
         try{
-            $response = $this->client->get('convert',['query'=> $query]);
-            return $response->getBody();
+            $response = $this->client->get('convert',['query' => $query]);
+            $body = $response->getBody();
+            $stringBody = json_decode($body);
+            return (array) $stringBody;
         }catch(\Exception $e){
             return [
                 'success' => false,

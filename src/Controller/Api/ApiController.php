@@ -6,6 +6,7 @@ use App\Entity\ApiCall;
 use App\Entity\Token;
 use App\Services\CurrencyLayerService;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,8 +30,11 @@ class ApiController extends AbstractController
         }
         $service = new CurrencyLayerService();
         $req = $request->toArray();
-        // $response = $service->getExchange($req['from'], $req['to'], $req['amount']);
+        $response = $service->getExchange($req['from'], $req['to'], $req['amount']);
 
+        if(!$response['success']){
+            throw new Exception('Ha ocurrido un error consultando',499);
+        }
         $authorizationHeader = $request->headers->get('Authorization');
         $user = null;
         $ip = $request->getClientIp();
@@ -53,19 +57,18 @@ class ApiController extends AbstractController
             }
         }
 
-        $response= [];
         $this->db->beginTransaction();
         try{
             $apiCall = new ApiCall;
             $date = new \DateTimeImmutable();
             $apiCall->setCreatedAt($date);
             $apiCall->setIp($ip);
-            $apiCall->setResponseApi($response);
+            $apiCall->setResponseApi((array) $response);
             $apiCall->setUser($user);
             $this->db->persist($apiCall);
             $this->db->flush();
             $this->db->commit();
-        }catch(\Exception $e){
+        }catch(Exception $e){
             $this->db->rollback();
             return custom_response('request Error', $e->getMessage(),400);
         }
