@@ -47,14 +47,10 @@ class LoginController extends AbstractController
                 422
             );
         };
-        $hashedPassword = $this->hashed->hashPassword(
-            $user,
-            $data['password']
-        );
-        if($user->getPassword() != $hashedPassword){
+        if(!$this->hashed->isPasswordValid($user,$data['password'])){
             return custom_response(
-                'login failed',
                 'Contraseña incorrecta',
+                'login falló',
                 422
             );
         };
@@ -63,7 +59,7 @@ class LoginController extends AbstractController
         try {
             $token = new Token();
             $token->setUserId($user->getId());
-            $tokenValue = uniqid();
+            $tokenValue = uniqid().uniqid();
             $token->setValue($tokenValue);
             $this->db->persist($token);
             $this->db->flush();

@@ -8,6 +8,7 @@ import { vuetify } from './vuetifty'
 import Register from '@/Register.vue';
 import Home from '@/Home.vue'
 import Header from '@/Header.vue'
+import Login from '@/Login.vue'
 import Toast from "vue-toastification";
 
 const app = createApp();
@@ -17,5 +18,6 @@ app
 .use(vuetify)
 .component('Register',Register)
 .component('Home',Home)
+.component('Login',Login)
 .component('header-v',Header)
 .mount("#app");

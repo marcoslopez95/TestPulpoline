@@ -79,8 +79,6 @@ const formRef = ref()
 const loading = ref(false)
 const form = reactive({
     email: "",
-    first_name: "",
-    last_name: "",
     password: "",
     password_confirmation: "",
 });
@@ -96,10 +94,7 @@ const registerF = async () => {
     const data = form;
     helper.http(url, "post", { data }, "Registro Exitoso").then(() => {
         form.email = "";
-        form.first_name = "";
-        form.last_name = "";
         form.password = "";
-        form.password_confirmation = "";
         formRef.value.resetValidation();
     }).finally(()=>loading.value = false);
 };
